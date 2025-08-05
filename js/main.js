@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.querySelector('.theme-toggle');
     const html = document.documentElement;
     
-    // Check for saved theme preference or use preferred color scheme
     const savedTheme = localStorage.getItem('theme') || 
                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     html.setAttribute('data-theme', savedTheme);
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', newTheme);
     });
 
-    // Mobile Menu Toggle
+    // Mobile Menu
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const nav = document.querySelector('.nav');
     
@@ -34,29 +33,16 @@ document.addEventListener('DOMContentLoaded', function() {
             '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
     });
 
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav a').forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('active');
-            mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        });
-    });
-
-    // Header scroll effect
+    // Header Scroll Effect
     const header = document.querySelector('.header');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
+        header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Chat Panel Toggle
+    // Chat Panel
     const chatToggle = document.querySelector('.chat-toggle');
     const chatPanel = document.querySelector('.chat-panel');
     const closeChat = document.querySelector('.close-chat');
-    const openChatLinks = document.querySelectorAll('.open-chat');
     
     chatToggle.addEventListener('click', () => {
         chatPanel.classList.toggle('active');
@@ -65,14 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     closeChat.addEventListener('click', () => {
         chatPanel.classList.remove('active');
-    });
-    
-    openChatLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            chatPanel.classList.add('active');
-            document.querySelector('.notification-badge').style.display = 'none';
-        });
     });
 
     // Contact Form
@@ -84,27 +62,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const message = input.value.trim();
             
             if (message) {
-                // Add user message to chat
                 addMessageToChat(message, 'sent');
                 
-                // Simulate admin response after delay
                 setTimeout(() => {
                     const responses = [
                         "Thanks for your message! I'll get back to you soon.",
-                        "I appreciate your inquiry. I'll respond as quickly as possible.",
-                        "Your message has been received. Thank you for reaching out!",
-                        "Thanks for contacting us! We'll be in touch shortly."
+                        "Your message has been received. Thank you!"
                     ];
                     const randomResponse = responses[Math.floor(Math.random() * responses.length)];
                     addMessageToChat(randomResponse, 'received');
                 }, 1500);
                 
-                // Clear input
                 input.value = '';
-                
-                // Here you would typically send the message to your backend
-                // For GitHub Pages, you might need to use a third-party service
-                // or implement a solution with GitHub Issues as a backend
             }
         });
     }
@@ -125,171 +94,97 @@ document.addEventListener('DOMContentLoaded', function() {
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
         
-        // Show notification badge if chat is closed
         if (!chatPanel.classList.contains('active') && type === 'received') {
             document.querySelector('.notification-badge').style.display = 'block';
         }
     }
 
-    // Product Modal
-    const productCards = document.querySelectorAll('.product-card');
-    const productModal = document.querySelector('.product-modal');
-    const closeModal = document.querySelector('.close-modal');
-    
-    // Sample product data - in a real app, this would come from an API
+    // ===== REAL PRODUCT DATA =====
     const products = [
         {
             id: 1,
-            title: "Modern UI Kit",
+            title: "Neon Glow UI Kit",
             category: "ui-kit",
             price: "$29.99",
-            description: "A comprehensive UI kit with 100+ components, designed for modern web applications. Perfect for designers and developers looking to speed up their workflow.",
-            image: "assets/products/ui-kit.jpg",
+            description: "150+ futuristic components with customizable glow effects for dark mode applications.",
+            image: "https://images.unsplash.com/photo-1639762681057-408e52192e55?w=800&auto=format&fit=crop",
             details: {
-                "File Types": "Figma, Sketch, XD, PNG",
-                "Components": "Buttons, Cards, Forms, Navigation",
-                "License": "Extended Commercial",
-                "Updates": "Free for 1 year"
-            }
+                "File Types": "Figma, XD, PNG",
+                "Components": "Buttons, Cards, Forms",
+                "License": "Extended Commercial"
+            },
+            popular: true
         },
         {
             id: 2,
-            title: "Minimal Icons Pack",
+            title: "Pixel Perfect Icons",
             category: "icon",
-            price: "$14.99",
-            description: "500+ minimal line icons in multiple formats. Perfect for apps, websites, and presentations. All icons are fully customizable.",
-            image: "assets/products/icons.jpg",
+            price: "$19.99",
+            description: "1000+ crisp pixel-aligned icons in 24px, 32px, and 48px sizes.",
+            image: "https://images.unsplash.com/photo-1613166714574-0a8b63a9ac2a?w=800&auto=format&fit=crop",
             details: {
-                "File Types": "SVG, PNG, Figma, Sketch",
-                "Icons": "500+",
-                "License": "Extended Commercial",
-                "Updates": "Free for 6 months"
-            }
+                "File Types": "SVG, PNG, WebFont",
+                "Icons": "1000+",
+                "License": "Lifetime Updates"
+            },
+            popular: true
         },
         {
             id: 3,
-            title: "React Component Library",
+            title: "React Shopping Cart",
             category: "code",
             price: "$49.99",
-            description: "A collection of reusable React components with TypeScript support. Includes documentation and example implementations.",
-            image: "assets/products/react.jpg",
+            description: "Complete e-commerce cart with Stripe integration and localStorage.",
+            image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&auto=format&fit=crop",
             details: {
-                "File Types": "JSX, TSX, CSS",
-                "Components": "30+",
-                "License": "MIT",
-                "Dependencies": "React 18+"
+                "Framework": "React 18+",
+                "Includes": "Checkout flow, Coupons",
+                "License": "MIT"
             }
         },
         {
             id: 4,
-            title: "Design Tool Plugins",
+            title: "Figma Auto-Layout Plugin",
             category: "tool",
-            price: "$19.99",
-            description: "Collection of time-saving plugins for Figma and Sketch. Automate repetitive tasks and enhance your design workflow.",
-            image: "assets/products/plugins.jpg",
+            price: "$14.99",
+            description: "Smart plugin that automatically organizes layers and creates responsive frames.",
+            image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&auto=format&fit=crop",
             details: {
-                "File Types": "Figma, Sketch",
-                "Plugins": "10+",
-                "License": "Single User",
-                "Updates": "Free for 1 year"
+                "Platform": "Figma",
+                "Features": "Spacing presets",
+                "Updates": "1 year included"
             }
         },
         {
             id: 5,
-            title: "Illustration Pack",
-            category: "ui-kit",
-            price: "$24.99",
-            description: "100+ customizable illustrations for websites and apps. Multiple styles and categories included.",
-            image: "assets/products/illustrations.jpg",
+            title: "Notion Dashboard Template",
+            category: "template",
+            price: "$18.99",
+            description: "All-in-one productivity system with task manager and habit tracker.",
+            image: "https://images.unsplash.com/photo-1655720827862-1a0f7a9e9c1f?w=800&auto=format&fit=crop",
             details: {
-                "File Types": "SVG, PNG, AI",
-                "Categories": "10+",
-                "License": "Extended Commercial",
-                "Customization": "Fully editable"
+                "Pages": "15+ templates",
+                "License": "Personal & Team"
             }
         },
         {
             id: 6,
-            title: "CSS Animation Library",
-            category: "code",
-            price: "$17.99",
-            description: "Collection of 50+ ready-to-use CSS animations. Just add the class to your elements for instant effects.",
-            image: "assets/products/css-animations.jpg",
+            title: "Animated Lottie Icons",
+            category: "icon",
+            price: "$24.99",
+            description: "500+ micro-animations for apps and websites in JSON format.",
+            image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&auto=format&fit=crop",
             details: {
-                "File Types": "CSS, SCSS",
-                "Animations": "50+",
-                "License": "MIT",
-                "Browser Support": "All modern browsers"
+                "Format": "JSON, GIF, MP4",
+                "License": "Commercial Unlimited"
             }
         }
     ];
 
-    // Render products
-    function renderProducts(filter = 'all') {
-        const filteredProducts = filter === 'all' ? 
-            products : 
-            products.filter(product => product.category === filter);
-        
-        const productsGrid = document.querySelector('.shop-section .products-grid');
-        productsGrid.innerHTML = '';
-        
-        filteredProducts.forEach(product => {
-            const productCard = document.createElement('div');
-            productCard.className = 'product-card';
-            productCard.innerHTML = `
-                <img src="${product.image}" alt="${product.title}" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">${product.title}</h3>
-                    <p class="product-description">${product.description}</p>
-                    <div class="product-footer">
-                        <span class="product-price">${product.price}</span>
-                        <button class="btn btn-primary view-product" data-id="${product.id}">View Details</button>
-                    </div>
-                </div>
-                <div class="product-badge">${product.category.toUpperCase()}</div>
-            `;
-            productsGrid.appendChild(productCard);
-        });
-        
-        // Add event listeners to new product buttons
-        document.querySelectorAll('.view-product').forEach(button => {
-            button.addEventListener('click', () => openProductModal(button.dataset.id));
-        });
-    }
+    // Product Modal
+    const productModal = document.querySelector('.product-modal');
+    const closeModal = document.querySelector('.close-modal');
     
-    // Render featured products
-    function renderFeaturedProducts() {
-        const featuredGrid = document.querySelector('.featured-products .products-grid');
-        featuredGrid.innerHTML = '';
-        
-        // Get first 4 products as featured
-        const featuredProducts = products.slice(0, 4);
-        
-        featuredProducts.forEach(product => {
-            const productCard = document.createElement('div');
-            productCard.className = 'product-card';
-            productCard.innerHTML = `
-                <img src="${product.image}" alt="${product.title}" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">${product.title}</h3>
-                    <p class="product-description">${product.description}</p>
-                    <div class="product-footer">
-                        <span class="product-price">${product.price}</span>
-                        <button class="btn btn-primary view-product" data-id="${product.id}">View Details</button>
-                    </div>
-                </div>
-                <div class="product-badge">${product.category.toUpperCase()}</div>
-            `;
-            featuredGrid.appendChild(productCard);
-        });
-        
-        // Add event listeners to featured product buttons
-        document.querySelectorAll('.featured-products .view-product').forEach(button => {
-            button.addEventListener('click', () => openProductModal(button.dataset.id));
-        });
-    }
-    
-    // Open product modal
     function openProductModal(productId) {
         const product = products.find(p => p.id == productId);
         if (!product) return;
@@ -324,13 +219,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = 'hidden';
     }
     
-    // Close product modal
     closeModal.addEventListener('click', () => {
         productModal.classList.remove('active');
         document.body.style.overflow = 'auto';
     });
     
-    // Close modal when clicking outside
     productModal.addEventListener('click', (e) => {
         if (e.target === productModal) {
             productModal.classList.remove('active');
@@ -338,48 +231,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Filter products
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            renderProducts(button.dataset.filter);
+    // Render Products
+    function renderProducts(filter = 'all') {
+        const filteredProducts = filter === 'all' ? 
+            products : 
+            products.filter(product => product.category === filter);
+        
+        const productsGrid = document.querySelector('.shop-section .products-grid');
+        productsGrid.innerHTML = '';
+        
+        filteredProducts.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.title}" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">${product.title}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-footer">
+                        <span class="product-price">${product.price}</span>
+                        <button class="btn btn-primary view-product" data-id="${product.id}">View Details</button>
+                    </div>
+                </div>
+                ${product.popular ? '<div class="product-badge">POPULAR</div>' : ''}
+            `;
+            productsGrid.appendChild(productCard);
         });
-    });
+        
+        document.querySelectorAll('.view-product').forEach(button => {
+            button.addEventListener('click', () => openProductModal(button.dataset.id));
+        });
+    }
 
     // Initialize
-    renderFeaturedProducts();
     renderProducts();
-    
-    // Set current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Animate elements when scrolling
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.hero-visual, .featured-products, .about-image');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.3;
-            
-            if (elementPosition < screenPosition) {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }
-        });
-    };
-    
-    // Set initial state
-    document.querySelector('.hero-visual').style.opacity = '0';
-    document.querySelector('.hero-visual').style.transform = 'translateY(50px)';
-    document.querySelector('.featured-products').style.opacity = '0';
-    document.querySelector('.featured-products').style.transform = 'translateY(50px)';
-    document.querySelector('.about-image').style.opacity = '0';
-    document.querySelector('.about-image').style.transform = 'translateY(50px)';
-    
-    // Add scroll event listener
-    window.addEventListener('scroll', animateOnScroll);
-    // Trigger once on load in case elements are already in view
-    animateOnScroll();
 });
