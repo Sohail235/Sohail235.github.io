@@ -1,26 +1,209 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="light">
 <head>
-  <title>SK THE DEVIL</title>
-  <style>
-    body {
-      background: black;
-      color: #00ff00;
-      font-family: monospace;
-      text-align: center;
-      margin-top: 100px;
-    }
-    h1 {
-      font-size: 3em;
-      text-shadow: 0 0 10px lime;
-    }
-    p {
-      font-size: 1.5em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sohail Khan | Digital Products</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>💀 SK THE DEVIL 💀</h1>
-  <p>Official Hacker Portal</p>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">SK<span>Digital</span></a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="chat-toggle">
+                    <i class="fas fa-comment-dots"></i>
+                    <span class="notification-badge"></span>
+                </button>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-word">Premium</span>
+                    <span class="title-word">Digital</span>
+                    <span class="title-word">Products</span>
+                </h1>
+                <p class="hero-subtitle">UI Kits · Icons · Code Packs · Tools · Templates</p>
+                <div class="hero-actions">
+                    <a href="#shop" class="btn btn-primary glow-on-hover">Explore Products</a>
+                    <a href="#about" class="btn btn-outline">About Creator</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card">
+                    <img src="assets/product-showcase.png" alt="Product Showcase" class="product-showcase">
+                    <div class="floating-element-1"></div>
+                    <div class="floating-element-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="products-grid">
+                <!-- Product cards will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="shop-section">
+        <div class="container">
+            <h2 class="section-title">Digital Shop</h2>
+            <div class="shop-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="ui-kit">UI Kits</button>
+                <button class="filter-btn" data-filter="icon">Icons</button>
+                <button class="filter-btn" data-filter="code">Code</button>
+                <button class="filter-btn" data-filter="tool">Tools</button>
+            </div>
+            <div class="products-grid">
+                <!-- All products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">About <span>Sohail Khan</span></h2>
+                <p class="about-text">I'm a digital product designer and developer with over 5 years of experience creating premium resources for designers and developers.</p>
+                <p class="about-text">My mission is to help creators build beautiful, functional digital products faster by providing high-quality, well-documented resources.</p>
+                <div class="about-skills">
+                    <div class="skill-tag">UI/UX Design</div>
+                    <div class="skill-tag">Frontend Development</div>
+                    <div class="skill-tag">Product Design</div>
+                    <div class="skill-tag">Digital Art</div>
+                </div>
+                <div class="about-contact">
+                    <a href="mailto:contact@sohailkhan.com" class="contact-link">
+                        <i class="fas fa-envelope"></i> contact@sohailkhan.com
+                    </a>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <div class="profile-card">
+                    <img src="assets/profile.jpg" alt="Sohail Khan" class="profile-img">
+                    <div class="profile-deco-1"></div>
+                    <div class="profile-deco-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Panel -->
+    <div class="chat-panel">
+        <div class="chat-header">
+            <h3>Customer Support</h3>
+            <button class="close-chat"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-messages">
+            <div class="message received">
+                <div class="message-content">
+                    <p>Hi there! How can I help you today?</p>
+                </div>
+                <div class="message-time">10:30 AM</div>
+            </div>
+            <!-- Messages will appear here -->
+        </div>
+        <div class="chat-input">
+            <form id="contact-form">
+                <input type="text" placeholder="Type your message..." required>
+                <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3 class="footer-title">SK Digital</h3>
+                    <p>Premium digital products for designers and developers.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-title">Support</h3>
+                    <ul>
+                        <li><a href="#" class="open-chat">Live Chat</a></li>
+                        <li><a href="mailto:contact@sohailkhan.com">Email Support</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> Sohail Khan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Modal -->
+    <div class="product-modal">
+        <div class="modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <div class="modal-product-view">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
 </body>
-</html>
+  </html>
