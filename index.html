@@ -3,124 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sohail Khan | Digital Products</title>
+    <title>Sohail Khan | Premium Digital Products</title>
+    <meta name="description" content="High-quality digital products for developers and designers">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
 </head>
 <body>
-    <div class="theme-toggle">
-        <i class="fas fa-moon"></i>
-        <i class="fas fa-sun"></i>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="spinner"></div>
     </div>
-    
+
+    <!-- Header -->
     <header class="header">
-        <div class="logo glow">SK</div>
-        <nav class="nav">
-            <a href="#products">Products</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-            <div class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count">0</span>
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">SK</span>
+                <span class="logo-text">Digital Products</span>
             </div>
-        </nav>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li class="cart-icon-container">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content floating">
-            <h1>Premium Digital Products</h1>
-            <p>High-quality design resources for your next project</p>
-            <a href="#products" class="btn glow">Explore Products</a>
-        </div>
-        <div class="hero-image floating">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Digital Products">
-        </div>
-    </section>
-
-    <section id="products" class="products">
-        <h2>Featured Products</h2>
-        <div class="product-grid">
-            <!-- Products will be loaded here by JavaScript -->
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <h2>About Me</h2>
-        <div class="profile">
-            <div class="profile-image floating">
-                <img src="https://i.postimg.cc/qR3w6R4w/80b487d272bfed439e4d2890fcd5d9dc.jpg" alt="Sohail Khan">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Premium Digital Assets</h1>
+            <p class="subtitle">High-quality resources for developers and designers</p>
+            <div class="cta-buttons">
+                <a href="#products" class="btn btn-primary">Browse Products</a>
+                <a href="#testimonials" class="btn btn-outline">See Testimonials</a>
             </div>
-            <div class="profile-content">
-                <h3>Sohail Khan</h3>
-                <p>Digital product designer and developer with expertise in UI/UX, Frontend Development, and creating high-quality design resources.</p>
-                
-                <div class="skills">
-                    <span class="skill-tag">UI/UX Design</span>
-                    <span class="skill-tag">Frontend Development</span>
-                    <span class="skill-tag">Digital Products</span>
-                    <span class="skill-tag">Web Design</span>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="ui-kits">UI Kits</button>
+                    <button class="filter-btn" data-filter="templates">Templates</button>
+                    <button class="filter-btn" data-filter="code">Code</button>
+                </div>
+            </div>
+            <div class="products-grid">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <h2>Customer Testimonials</h2>
+            <div class="testimonials-grid">
+                <!-- Testimonials will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="profile-card">
+                <div class="profile-image">
+                    <img src="https://i.postimg.cc/cCwqXXhq/IMG-20250119-072901-954.jpg" alt="Sohail Khan">
+                </div>
+                <div class="profile-content">
+                    <h2>Sohail Khan</h2>
+                    <p class="title">Digital Product Creator</p>
+                    <p class="bio">With over 5 years of experience in UI/UX design and frontend development, I create high-quality digital resources that help developers and designers build better products faster.</p>
+                    <div class="skills">
+                        <span class="skill-tag">UI/UX Design</span>
+                        <span class="skill-tag">Frontend Development</span>
+                        <span class="skill-tag">Digital Products</span>
+                        <span class="skill-tag">Web Design</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://dribbble.com/yourprofile" target="_blank"><i class="fab fa-dribbble"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <h2>Get In Touch</h2>
-        <div class="contact-methods">
-            <a href="mailto:sohailkhangurmanibaloch1134@gmail.com" class="contact-btn">
-                <i class="fas fa-envelope"></i> Email Me
-            </a>
-            <a href="https://wa.me/48699541013" class="contact-btn whatsapp">
-                <i class="fab fa-whatsapp"></i> WhatsApp
-            </a>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-methods">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <a href="mailto:sohailkhangurmanibaloch1134@gmail.com">sohailkhangurmanibaloch1134@gmail.com</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <a href="https://wa.me/48699541013">+48 699 541 013</a>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Floating WhatsApp Button -->
     <div class="whatsapp-float">
-        <a href="https://wa.me/48699541013">
+        <a href="https://wa.me/48699541013" target="_blank">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
 
-    <div class="cart-modal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h3>Your Cart</h3>
-                <span class="close-cart">&times;</span>
-            </div>
-            <div class="cart-items">
-                <!-- Cart items will be loaded here -->
-            </div>
-            <div class="cart-total">
-                <span>Total:</span>
-                <span class="total-amount">$0.00</span>
-            </div>
-            <div class="cart-actions">
-                <button class="btn paypal-btn">
-                    <i class="fab fa-paypal"></i> Checkout with PayPal
-                </button>
-                <button class="btn whatsapp-btn">
-                    <i class="fab fa-whatsapp"></i> Order via WhatsApp
-                </button>
-            </div>
-        </div>
-    </div>
-
+    <!-- Product Modal -->
     <div class="product-modal">
-        <div class="product-modal-content">
+        <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <div class="modal-product-details">
+            <div class="modal-body">
                 <!-- Product details will be loaded here -->
             </div>
         </div>
     </div>
 
-    <div class="toast"></div>
+    <!-- Cart Modal -->
+    <div class="cart-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Your Shopping Cart</h3>
+                <span class="close-cart">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span class="subtotal-amount">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax (0%):</span>
+                        <span class="tax-amount">$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span class="total-amount">$0.00</span>
+                    </div>
+                    <div class="payment-options">
+                        <div id="paypal-button-container"></div>
+                        <a href="#" class="whatsapp-checkout-btn">
+                            <i class="fab fa-whatsapp"></i> Checkout via WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2023 Sohail Khan. All rights reserved.</p>
+    <!-- Toast Notification -->
+    <div class="toast-notification"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">SK</span>
+                    <span class="logo-text">Digital Products</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Refund Policy</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Sohail Khan. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
