@@ -1,481 +1,518 @@
-// ===== Global Variables =====
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let currentTheme = localStorage.getItem('theme') || 
-                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-
-// ===== Product Data =====
-const products = [
-    {
-        id: 1,
-        name: "Minimal UI Kit",
-        price: 29.99,
-        description: "A clean and modern UI kit with 50+ components for your next project. Includes buttons, cards, forms, and more. Perfect for web and mobile applications.",
-        images: [
-            "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
-            "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80",
-            "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-        ],
-        features: [
-            "50+ customizable components",
-            "Figma, Sketch, and XD files included",
-            "Fully responsive designs",
-            "Dark & light mode variants",
-            "Free updates for 1 year",
-            "Well-organized layers",
-            "Modular structure"
-        ],
-        category: "ui-kits",
-        downloadLink: "https://yourwebsite.com/downloads/ui-kit-minimal.zip",
-        license: "standard"
-    },
-    {
-        id: 2,
-        name: "Icon Pack Pro",
-        price: 14.99,
-        description: "1000+ premium icons in multiple styles (filled, outlined, duotone). Perfect for apps, websites, and presentations. All icons are vector-based and fully scalable.",
-        images: [
-            "https://images.unsplash.com/photo-1614332287897-cdc485fa562d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-        ],
-        features: [
-            "1000+ high-quality icons",
-            "SVG, PNG, and Figma formats",
-            "Multiple styles included",
-            "Regularly updated collection",
-            "Commercial license included",
-            "Pixel-perfect at all sizes",
-            "Easy to customize"
-        ],
-        category: "icons",
-        downloadLink: "https://yourwebsite.com/downloads/icon-pack-pro.zip",
-        license: "extended"
-    },
-    {
-        id: 3,
-        name: "E-commerce Template",
-        price: 49.99,
-        description: "Complete e-commerce template with product pages, cart, checkout, and dashboard. Built with HTML, CSS, and JavaScript. Fully responsive and ready to deploy.",
-        images: [
-            "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1468&q=80"
-        ],
-        features: [
-            "10+ ready-to-use pages",
-            "Fully responsive design",
-            "Clean, commented code",
-            "Easy to customize",
-            "Lifetime updates",
-            "Product variants support",
-            "Secure checkout flow"
-        ],
-        category: "templates",
-        downloadLink: "https://yourwebsite.com/downloads/ecommerce-template.zip",
-        license: "standard"
-    },
-    {
-        id: 4,
-        name: "React Dashboard",
-        price: 39.99,
-        description: "Modern React dashboard with charts, tables, and widgets. Includes authentication and dark mode support. Perfect for admin panels and analytics applications.",
-        images: [
-            "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
-        ],
-        features: [
-            "Built with React.js",
-            "10+ customizable widgets",
-            "Dark/light mode toggle",
-            "API integration examples",
-            "Detailed documentation",
-            "Modular component structure",
-            "Responsive layout"
-        ],
-        category: "code",
-        downloadLink: "https://yourwebsite.com/downloads/react-dashboard.zip",
-        license: "extended"
-    },
-    {
-        id: 5,
-        name: "Illustration Pack",
-        price: 19.99,
-        description: "Collection of 50+ modern illustrations for websites, apps, and presentations. Multiple styles and categories included. All illustrations are fully editable.",
-        images: [
-            "https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1468&q=80",
-            "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1580894732930-0babd100d356?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-        ],
-        features: [
-            "50+ high-resolution illustrations",
-            "SVG and PNG formats",
-            "Multiple color variants",
-            "Regularly updated collection",
-            "Commercial license included",
-            "Fully editable vectors",
-            "Organized by categories"
-        ],
-        category: "illustrations",
-        downloadLink: "https://yourwebsite.com/downloads/illustration-pack.zip",
-        license: "standard"
-    },
-    {
-        id: 6,
-        name: "JavaScript Utilities",
-        price: 24.99,
-        description: "Collection of reusable JavaScript utilities for common tasks like form validation, animations, and API calls. Works with any framework or vanilla JS.",
-        images: [
-            "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
-            "https://images.unsplash.com/photo-1542903660-eedba2cda473?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-        ],
-        features: [
-            "30+ utility functions",
-            "Vanilla JS (no dependencies)",
-            "Detailed documentation",
-            "TypeScript support",
-            "MIT license",
-            "Fully tested",
-            "Modular imports"
-        ],
-        category: "code",
-        downloadLink: "https://yourwebsite.com/downloads/js-utilities.zip",
-        license: "extended"
-    }
-];
-
-const testimonials = [
-    {
-        id: 1,
-        name: "Sarah Johnson",
-        role: "UI Designer",
-        company: "Creative Studio",
-        content: "The UI Kit saved me countless hours of work. The components are well-organized and easy to customize. Highly recommended!",
-        avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-    },
-    {
-        id: 2,
-        name: "Michael Chen",
-        role: "Frontend Developer",
-        company: "Tech Solutions Inc.",
-        content: "The React Dashboard template was exactly what we needed for our admin panel. Clean code and great documentation made implementation a breeze.",
-        avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-    },
-    {
-        id: 3,
-        name: "Emma Rodriguez",
-        role: "Product Manager",
-        company: "StartUp Ventures",
-        content: "The illustration pack helped us create a consistent visual style across our marketing materials. The quality is outstanding!",
-        avatar: "https://randomuser.me/api/portraits/women/63.jpg"
-    }
-];
-
-// ===== DOM Elements =====
-const loadingOverlay = document.querySelector('.loading-overlay');
-const themeToggleBtn = document.querySelector('.theme-toggle');
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const nav = document.querySelector('.nav');
-const cartIcon = document.querySelector('.cart-icon-container');
-const cartModal = document.querySelector('.cart-modal');
-const closeCartBtn = document.querySelector('.close-cart');
-const productModal = document.querySelector('.product-modal');
-const closeModalBtn = document.querySelector('.close-modal');
-const productsGrid = document.querySelector('.products-grid');
-const testimonialsGrid = document.querySelector('.testimonials-grid');
-const filterBtns = document.querySelectorAll('.filter-btn');
-const toastNotification = document.querySelector('.toast-notification');
-const paypalButtonContainer = document.getElementById('paypal-button-container');
-const whatsappCheckoutBtn = document.querySelector('.whatsapp-checkout-btn');
-
-// ===== Initialize App =====
-function initApp() {
-    // Set initial theme
-    setTheme(currentTheme);
-    
-    // Load products
-    displayProducts();
-    
-    // Load testimonials
-    displayTestimonials();
-    
-    // Update cart count
-    updateCartCount();
-    
-    // Hide loading overlay
-    setTimeout(() => {
-        loadingOverlay.classList.add('hidden');
-    }, 1000);
-}
-
-// ===== Theme Management =====
-function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    document.body.classList.toggle('dark-mode', theme === 'dark');
-    localStorage.setItem('theme', theme);
-}
-
-// ===== Product Display =====
-function displayProducts(filter = 'all') {
-    productsGrid.innerHTML = '';
-    
-    const filteredProducts = filter === 'all' 
-        ? products 
-        : products.filter(product => product.category === filter);
-    
-    filteredProducts.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card';
-        productCard.innerHTML = `
-            <img src="${product.images[0]}" alt="${product.name}" class="product-image">
-            <div class="product-info">
-                <h3>${product.name}</h3>
-                <div class="product-price">$${product.price.toFixed(2)}</div>
-                <p class="product-description">${product.description.substring(0, 100)}...</p>
-                <div class="product-actions">
-                    <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
-                    <button class="view-details" data-id="${product.id}">View Details</button>
-                </div>
-            </div>
-        `;
-        productsGrid.appendChild(productCard);
-    });
-}
-
-// ===== Testimonials Display =====
-function displayTestimonials() {
-    testimonialsGrid.innerHTML = '';
-    
-    testimonials.forEach(testimonial => {
-        const testimonialCard = document.createElement('div');
-        testimonialCard.className = 'testimonial-card';
-        testimonialCard.innerHTML = `
-            <div class="testimonial-content">
-                <p>"${testimonial.content}"</p>
-            </div>
-            <div class="testimonial-author">
-                <img src="${testimonial.avatar}" alt="${testimonial.name}" class="author-avatar">
-                <div class="author-info">
-                    <h4>${testimonial.name}</h4>
-                    <p>${testimonial.role}, ${testimonial.company}</p>
-                </div>
-            </div>
-        `;
-        testimonialsGrid.appendChild(testimonialCard);
-    });
-}
-
-// ===== Product Modal =====
-function openProductModal(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    const modalBody = document.querySelector('.modal-body');
-    modalBody.innerHTML = `
-        <div class="product-details">
-            <div class="product-gallery">
-                <img src="${product.images[0]}" alt="${product.name}" class="main-image">
-                <div class="thumbnail-container">
-                    ${product.images.map((img, index) => `
-                        <img src="${img}" alt="Thumbnail ${index + 1}" class="thumbnail ${index === 0 ? 'active' : ''}">
-                    `).join('')}
-                </div>
-            </div>
-            <div class="product-info">
-                <h3>${product.name}</h3>
-                <div class="product-price">$${product.price.toFixed(2)}</div>
-                <p class="product-description">${product.description}</p>
-                <div class="product-features">
-                    <h4>Features:</h4>
-                    <ul>
-                        ${product.features.map(feature => `<li>${feature}</li>`).join('')}
-                    </ul>
-                </div>
-                <div class="modal-actions">
-                    <button class="btn btn-primary add-to-cart-modal" data-id="${product.id}">Add to Cart</button>
-                    <button class="btn btn-outline buy-now" data-id="${product.id}">Buy Now</button>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    productModal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    
-    // Thumbnail click handler
-    const thumbnails = document.querySelectorAll('.thumbnail');
-    const mainImage = document.querySelector('.main-image');
-    
-    thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', () => {
-            thumbnails.forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
-            mainImage.src = thumb.src;
-        });
-    });
-}
-
-// ===== Cart Management =====
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    const existingItem = cart.find(item => item.id === productId);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.images[0],
-            quantity: 1,
-            downloadLink: product.downloadLink,
-            license: product.license
-        });
-    }
-    
-    saveCart();
-    showToast(`${product.name} added to cart`);
-}
-
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    saveCart();
-    renderCartItems();
-    showToast('Item removed from cart');
-}
-
-function updateQuantity(productId, newQuantity) {
-    const item = cart.find(item => item.id === productId);
-    
-    if (item) {
-        if (newQuantity < 1) {
-            removeFromCart(productId);
+document.addEventListener('DOMContentLoaded', function() {
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
         } else {
-            item.quantity = newQuantity;
-            saveCart();
-            renderCartItems();
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
         }
-    }
-}
-
-function renderCartItems() {
-    const cartItems = document.querySelector('.cart-items');
-    const subtotalAmount = document.querySelector('.subtotal-amount');
-    const taxAmount = document.querySelector('.tax-amount');
-    const totalAmount = document.querySelector('.total-amount');
-    
-    if (cart.length === 0) {
-        cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
-        subtotalAmount.textContent = '$0.00';
-        taxAmount.textContent = '$0.00';
-        totalAmount.textContent = '$0.00';
-        paypalButtonContainer.innerHTML = '';
-        return;
-    }
-    
-    cartItems.innerHTML = '';
-    let subtotal = 0;
-    
-    cart.forEach(item => {
-        const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-            <div class="cart-item-info">
-                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                <div class="cart-item-details">
-                    <h4>${item.name}</h4>
-                    <p>$${item.price.toFixed(2)}</p>
-                </div>
-            </div>
-            <div class="cart-item-actions">
-                <button class="quantity-btn minus" data-id="${item.id}">-</button>
-                <span>${item.quantity}</span>
-                <button class="quantity-btn plus" data-id="${item.id}">+</button>
-                <button class="remove-item" data-id="${item.id}">Remove</button>
-            </div>
-        `;
-        cartItems.appendChild(cartItem);
-        
-        subtotal += item.price * item.quantity;
     });
-    
-    const tax = 0; // Assuming 0% tax for digital products
-    const total = subtotal + tax;
-    
-    subtotalAmount.textContent = `$${subtotal.toFixed(2)}`;
-    taxAmount.textContent = `$${tax.toFixed(2)}`;
-    totalAmount.textContent = `$${total.toFixed(2)}`;
-    
-    // Initialize PayPal button
-    initPayPalButton(total);
-}
 
-function initPayPalButton(total) {
-    paypalButtonContainer.innerHTML = '';
-    
-    paypal.Buttons({
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: total.toFixed(2),
-                        currency_code: "USD"
-                    },
-                    items: cart.map(item => ({
-                        name: item.name,
-                        unit_amount: {
-                            currency_code: "USD",
-                            value: item.price.toFixed(2)
-                        },
-                        quantity: item.quantity.toString(),
-                        category: "DIGITAL_GOODS"
-                    })),
-                    payee: {
-                        email_address: "sohailkhangurmanibaloch1134@gmail.com"
-                    },
-                    description: "Digital products purchase",
-                    custom_id: generateOrderId()
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                // Process successful payment
-                processSuccessfulPayment(details);
-                
-                // Clear cart
-                cart = [];
-                saveCart();
-                renderCartItems();
-                
-                // Close cart modal
-                cartModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-                
-                // Show success message
-                showToast('Payment successful! Download links sent to your email.');
-            });
-        },
-        onError: function(err) {
-            console.error('PayPal error:', err);
-            showToast('Payment failed. Please try again.', 'error');
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    // Mobile Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('a');
+        link.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            }
+        });
+    });
+
+    // Hero Slider
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.querySelector('.slider-dots');
+    let currentSlide = 0;
+
+    // Create dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function goToSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.remove('active');
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    document.querySelector('.next-slide').addEventListener('click', () => {
+        goToSlide(currentSlide + 1);
+    });
+
+    document.querySelector('.prev-slide').addEventListener('click', () => {
+        goToSlide(currentSlide - 1);
+    });
+
+    // Auto slide change
+    let slideInterval = setInterval(() => {
+        goToSlide(currentSlide + 1);
+    }, 5000);
+
+    // Pause on hover
+    const heroSlider = document.querySelector('.hero-slider');
+    heroSlider.addEventListener('mouseenter', () => {
+        clearInterval(slideInterval);
+    });
+
+    heroSlider.addEventListener('mouseleave', () => {
+        slideInterval = setInterval(() => {
+            goToSlide(currentSlide + 1);
+        }, 5000);
+    });
+
+    // Testimonial Slider
+    const testimonials = document.querySelectorAll('.testimonial');
+    const testimonialDotsContainer = document.querySelector('.testimonial-dots');
+    let currentTestimonial = 0;
+
+    // Create testimonial dots
+    testimonials.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToTestimonial(index));
+        testimonialDotsContainer.appendChild(dot);
+    });
+
+    const testimonialDots = document.querySelectorAll('.testimonial-dots .dot');
+
+    function goToTestimonial(index) {
+        testimonials[currentTestimonial].classList.remove('active');
+        testimonialDots[currentTestimonial].classList.remove('active');
+        currentTestimonial = (index + testimonials.length) % testimonials.length;
+        testimonials[currentTestimonial].classList.add('active');
+        testimonialDots[currentTestimonial].classList.add('active');
+    }
+
+    document.querySelector('.next-testimonial').addEventListener('click', () => {
+        goToTestimonial(currentTestimonial + 1);
+    });
+
+    document.querySelector('.prev-testimonial').addEventListener('click', () => {
+        goToTestimonial(currentTestimonial - 1);
+    });
+
+    // Auto testimonial change
+    setInterval(() => {
+        goToTestimonial(currentTestimonial + 1);
+    }, 7000);
+
+    // Shopping Cart
+    const cartBtn = document.querySelector('.cart-icon');
+    const cartSidebar = document.querySelector('.cart-sidebar');
+    const cartOverlay = document.querySelector('.cart-overlay');
+    const closeCart = document.querySelector('.close-cart');
+    const cartItemsContainer = document.querySelector('.cart-items');
+    const cartTotal = document.querySelector('.total-amount');
+    const cartCount = document.querySelector('.cart-count');
+    const addToCartBtns = document.querySelectorAll('.add-to-cart');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function updateCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCartItems();
+        updateCartCount();
+    }
+
+    function updateCartCount() {
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        cartCount.textContent = totalItems;
+    }
+
+    function renderCartItems() {
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = `
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            `;
+            cartTotal.textContent = '$0.00';
+            return;
         }
-    }).render('#paypal-button-container');
-}
 
-function generateOrderId() {
-    return 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
-}
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
 
-function processSuccessfulPayment(details) {
-    // In a real implementation, you would:
-    // 1. Send the order details to your backend
-    // 2. Generate download links
-    // 3. Send email to customer with links
-    
-    const orderData = {
-    
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                <div class="cart-item-details">
+                    <h4 class="cart-item-title">${item.name}</h4>
+                    <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                    <div class="cart-item-actions">
+                        <div class="quantity-control">
+                            <button class="decrease-qty" data-index="${index}">-</button>
+                            <input type="number" value="${item.quantity}" min="1" class="item-qty" data-index="${index}">
+                            <button class="increase-qty" data-index="${index}">+</button>
+                        </div>
+                        <span class="remove-item" data-index="${index}">Remove</span>
+                    </div>
+                </div>
+            `;
+            cartItemsContainer.appendChild(cartItem);
+        });
+
+        cartTotal.textContent = `$${total.toFixed(2)}`;
+
+        // Add event listeners to quantity controls and remove buttons
+        document.querySelectorAll('.decrease-qty').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const index = e.target.getAttribute('data-index');
+                if (cart[index].quantity > 1) {
+                    cart[index].quantity--;
+                    updateCart();
+                }
+            });
+        });
+
+        document.querySelectorAll('.increase-qty').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const index = e.target.getAttribute('data-index');
+                cart[index].quantity++;
+                updateCart();
+            });
+        });
+
+        document.querySelectorAll('.item-qty').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const index = e.target.getAttribute('data-index');
+                const newQty = parseInt(e.target.value);
+                if (newQty > 0) {
+                    cart[index].quantity = newQty;
+                    updateCart();
+                }
+            });
+        });
+
+        document.querySelectorAll('.remove-item').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const index = e.target.getAttribute('data-index');
+                cart.splice(index, 1);
+                updateCart();
+            });
+        });
+    }
+
+    addToCartBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const productCard = e.target.closest('.product-card');
+            const productId = productCard.getAttribute('data-id') || Math.random().toString(36).substr(2, 9);
+            const productName = productCard.querySelector('.product-title').textContent;
+            const productPrice = parseFloat(productCard.querySelector('.current-price').textContent.replace('$', ''));
+            const productImage = productCard.querySelector('img').src;
+
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                    quantity: 1
+                });
+            }
+
+            updateCart();
+            showAddedToCartMessage(productName);
+        });
+    });
+
+    function showAddedToCartMessage(productName) {
+        const message = document.createElement('div');
+        message.classList.add('cart-message');
+        message.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <span>${productName} added to cart</span>
+        `;
+        document.body.appendChild(message);
+
+        setTimeout(() => {
+            message.classList.add('show');
+        }, 10);
+
+        setTimeout(() => {
+            message.classList.remove('show');
+            setTimeout(() => {
+                message.remove();
+            }, 300);
+        }, 3000);
+    }
+
+    // Toggle cart sidebar
+    cartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        cartSidebar.classList.add('active');
+        cartOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeCart.addEventListener('click', () => {
+        cartSidebar.classList.remove('active');
+        cartOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    cartOverlay.addEventListener('click', () => {
+        cartSidebar.classList.remove('active');
+        cartOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    // Live Chat
+    const chatBtn = document.querySelector('.chat-btn');
+    const chatWindow = document.querySelector('.chat-window');
+    const closeChat = document.querySelector('.close-chat');
+    const chatMessages = document.querySelector('.chat-messages');
+    const chatInput = document.querySelector('.chat-input input');
+
+    chatBtn.addEventListener('click', () => {
+        document.querySelector('.live-chat').classList.toggle('active');
+    });
+
+    closeChat.addEventListener('click', () => {
+        document.querySelector('.live-chat').classList.remove('active');
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && chatInput.value.trim() !== '') {
+            const message = chatInput.value.trim();
+            addMessage(message, 'customer');
+            chatInput.value = '';
+
+            // Simulate agent response
+            setTimeout(() => {
+                const responses = [
+                    "Thanks for your message! How can we help you?",
+                    "Our team will get back to you shortly.",
+                    "Is there anything else you'd like to know?",
+                    "We're here to help with any questions!"
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(randomResponse, 'agent');
+            }, 1000);
+        }
+    });
+
+    function addMessage(text, sender) {
+        const now = new Date();
+        const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const message = document.createElement('div');
+        message.classList.add('message', sender);
+        message.innerHTML = `
+            <p>${text}</p>
+            <span class="time">${time}</span>
+        `;
+        chatMessages.appendChild(message);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Quick View Modal
+    const quickViewBtns = document.querySelectorAll('.quick-view');
+    const quickViewModal = document.querySelector('.quick-view-modal');
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const closeModal = document.querySelector('.close-modal');
+    const productQuickView = document.querySelector('.product-quick-view');
+
+    quickViewBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const productCard = e.target.closest('.product-card');
+            const productName = productCard.querySelector('.product-title').textContent;
+            const productPrice = productCard.querySelector('.current-price').textContent;
+            const originalPrice = productCard.querySelector('.original-price')?.textContent || '';
+            const productRating = productCard.querySelector('.product-rating').innerHTML;
+            const productImage = productCard.querySelector('img').src;
+
+            productQuickView.innerHTML = `
+                <div class="product-quick-view-images">
+                    <div class="main-image">
+                        <img src="${productImage}" alt="${productName}">
+                    </div>
+                    <div class="thumbnail-images">
+                        <img src="${productImage}" alt="${productName}" class="active">
+                        <img src="https://via.placeholder.com/200x200?text=Product+2" alt="${productName}">
+                        <img src="https://via.placeholder.com/200x200?text=Product+3" alt="${productName}">
+                        <img src="https://via.placeholder.com/200x200?text=Product+4" alt="${productName}">
+                    </div>
+                </div>
+                <div class="product-quick-view-details">
+                    <h2>${productName}</h2>
+                    <div class="product-quick-view-price">
+                        ${productPrice} ${originalPrice ? `<span class="original-price">${originalPrice}</span>` : ''}
+                    </div>
+                    <div class="product-quick-view-rating">
+                        ${productRating}
+                    </div>
+                    <p class="product-quick-view-description">
+                        This premium product features high-quality materials and excellent craftsmanship. 
+                        Designed for durability and performance, it's perfect for everyday use. 
+                        Comes with a 1-year manufacturer warranty and 24/7 customer support.
+                    </p>
+                    <div class="product-quick-view-actions">
+                        <div class="quantity-selector">
+                            <button class="decrease-qty">-</button>
+                            <input type="number" value="1" min="1">
+                            <button class="increase-qty">+</button>
+                        </div>
+                        <button class="add-to-cart-modal">Add to Cart</button>
+                        <button class="add-to-wishlist-modal"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="product-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">SKU:</span>
+                            <span>SK-${Math.floor(1000 + Math.random() * 9000)}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Category:</span>
+                            <span>Electronics</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Tags:</span>
+                            <span>Premium, Quality, Popular</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners for thumbnail images
+            const thumbnails = productQuickView.querySelectorAll('.thumbnail-images img');
+            const mainImage = productQuickView.querySelector('.main-image img');
+
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    thumbnails.forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                    mainImage.src = thumb.src;
+                });
+            });
+
+            // Add to cart button in modal
+            const addToCartModal = productQuickView.querySelector('.add-to-cart-modal');
+            addToCartModal.addEventListener('click', () => {
+                const quantity = parseInt(productQuickView.querySelector('.quantity-selector input').value);
+                
+                // Check if product already in cart
+                const existingItem = cart.find(item => item.name === productName);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({
+                        id: Math.random().toString(36).substr(2, 9),
+                        name: productName,
+                        price: parseFloat(productPrice.replace('$', '')),
+                        image: productImage,
+                        quantity: quantity
+                    });
+                }
+
+                updateCart();
+                showAddedToCartMessage(productName);
+                quickViewModal.classList.remove('active');
+            });
+
+            quickViewModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    closeModal.addEventListener('click', () => {
+        quickViewModal.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    modalOverlay.addEventListener('click', () => {
+        quickViewModal.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    // Initialize cart
+    updateCart();
+
+    // Form submission for fraud report
+    const fraudReportForm = document.getElementById('fraud-report-form');
+    if (fraudReportForm) {
+        fraudReportForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your report. We take these matters seriously and will investigate promptly.');
+            fraudReportForm.reset();
+        });
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Animation on scroll
+    function animateOnScroll() {
+        const elements = document.querySelectorAll('.category-card, .product-card, .testimonial');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+            
+            if (elementPosition < screenPosition) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    }
+
+    // Set initial state for animated elements
+    document.querySelectorAll('.category-card, .product-card, .testimonial').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll(); // Run once on page load
+});
