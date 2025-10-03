@@ -16,7 +16,7 @@ document.querySelectorAll('.tab-item a').forEach(link => {
     });
 });
 
-// Mobile menu toggle (fallback if orbit hidden)
+// Mobile menu toggle
 const mobileToggle = document.querySelector('.mobile-toggle');
 const navUl = document.querySelector('nav ul');
 if (mobileToggle && navUl) {
@@ -25,7 +25,7 @@ if (mobileToggle && navUl) {
     });
 }
 
-// Smooth scrolling for anchor links
+// Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -39,7 +39,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Scroll-triggered animations for cards/posts
+// Scroll animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -59,7 +59,7 @@ document.querySelectorAll('.card, .post, .mission li').forEach(el => {
     observer.observe(el);
 });
 
-// Newsletter form
+// Forms
 const newsletterForm = document.querySelector('.newsletter-form');
 if (newsletterForm) {
     newsletterForm.addEventListener('submit', function(e) {
@@ -69,7 +69,6 @@ if (newsletterForm) {
     });
 }
 
-// Contact form
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -79,7 +78,7 @@ if (contactForm) {
     });
 }
 
-// Game Modal System
+// Game Modal
 const modal = document.getElementById('game-modal');
 const gameContent = document.getElementById('game-content');
 const closeBtn = document.querySelector('.close');
@@ -108,7 +107,6 @@ playBtns.forEach(btn => {
     });
 });
 
-// Game Loader
 function loadGame(gameId) {
     let html = '';
     switch (gameId) {
@@ -162,7 +160,6 @@ function loadGame(gameId) {
     gameContent.innerHTML = html;
 }
 
-// Game Functions
 function checkPassword() {
     const pwd = document.getElementById('pwd-input').value;
     let score = 0;
@@ -245,7 +242,7 @@ function scanPort() {
     result.innerHTML += '<p>Tip: Common open ports: 80 (HTTP), 443 (HTTPS).</p>';
 }
 
-// Expose to global scope
+// Global expose
 window.checkPassword = checkPassword;
 window.caesarEncrypt = caesarEncrypt;
 window.caesarDecrypt = caesarDecrypt;
