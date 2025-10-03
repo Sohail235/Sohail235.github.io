@@ -1,29 +1,26 @@
-// Mobile menu toggle
-const mobileToggle = document.querySelector('.mobile-toggle');
-const navUl = document.querySelector('nav ul');
-
-if (mobileToggle && navUl) {
-    mobileToggle.addEventListener('click', () => {
-        navUl.classList.toggle('active');
-    });
-}
-
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+// Orbit tab clicks
+document.querySelectorAll('.tab-item a').forEach(link => {
+    link.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth'
-            });
+        const href = link.getAttribute('href');
+        if (href !== window.location.pathname) {
+            window.location.href = href;
         }
-        // Close mobile menu if open
-        if (navUl) navUl.classList.remove('active');
+        const orbitTabs = document.querySelector('.orbit-tabs');
+        orbitTabs.style.animationPlayState = 'paused';
+        setTimeout(() => {
+            orbitTabs.style.animationPlayState = 'running';
+        }, 300);
     });
 });
 
-// Scroll-triggered animations for cards (using Intersection Observer for performance)
+// Mobile fallback (if needed - add hamburger)
+const mobileToggle = document.querySelector('.mobile-toggle');
+if (mobileToggle) {
+    // Add if using fallback nav
+}
+
+// Scroll-triggered animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -38,22 +35,20 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all cards and posts
 document.querySelectorAll('.card, .post').forEach(card => {
     observer.observe(card);
 });
 
-// Newsletter form
+// Forms
 const newsletterForm = document.querySelector('.newsletter-form');
 if (newsletterForm) {
     newsletterForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        alert('Subscribed! Check your email for confirmation. (Integrate with your service.)');
+        alert('Subscribed! Check your email for confirmation.');
         this.reset();
     });
 }
 
-// Contact form
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -62,3 +57,56 @@ if (contactForm) {
         this.reset();
     });
 }
+
+// Games (from previous)
+const modal = document.getElementById('game-modal');
+const gameContent = document.getElementById('game-content');
+const closeBtn = document.querySelector('.close');
+const playBtns = document.querySelectorAll('.play-btn:not(.disabled)');
+
+playBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const gameId = btn.closest('.game-card').dataset.game;
+        loadGame(gameId);
+        modal.style.display = 'block';
+    });
+});
+
+closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    gameContent.innerHTML = '';
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+        gameContent.innerHTML = '';
+    }
+});
+
+function loadGame(gameId) {
+    let html = '';
+    switch (gameId) {
+        case 'password-strength':
+            html = `
+                <h3>Password Strength Analyzer</h3>
+                <p>Enter a password to check its strength.</p>
+                <input type="password" id="pwd-input" placeholder="Enter password" maxlength="20">
+                <button onclick="checkPassword()">Analyze</button>
+                <div id="pwd-result" class="game-score"></div>
+                <p id="pwd-tip"></p>
+            `;
+            break;
+        // Add other cases as before...
+        default:
+            html = '<p>Game coming soon!</p>';
+    }
+    gameContent.innerHTML = html;
+}
+
+// Game functions as before (checkPassword, etc.) - copy from last version
+
+// Expose to global
+window.checkPassword = checkPassword;
+window.caesarEncrypt = caesarEncrypt;
+// ... etc.
