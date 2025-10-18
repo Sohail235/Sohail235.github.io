@@ -3,119 +3,1644 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silent Tech - Ethical Hacking Tutorials & Resources</title>
-    <meta name="description" content="Learn ethical hacking, penetration testing, and cybersecurity from expert tutorials at Silent Tech.">
-    <meta name="keywords" content="ethical hacking, cybersecurity, tutorials, penetration testing">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>SILENT | Enterprise Security & Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a0a0f;
+            --secondary: #151520;
+            --accent: #ff073a;
+            --accent-light: #ff4d6d;
+            --accent-dark: #c9184a;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8c7;
+            --text-tertiary: #8a8a9a;
+            --border: rgba(255, 255, 255, 0.08);
+            --success: #00d26a;
+            --warning: #ffb800;
+            --error: #ff073a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Advanced Background System */
+        .bg-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            overflow: hidden;
+        }
+
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 7, 58, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 7, 58, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(1000px) rotateX(75deg);
+            transform-origin: bottom;
+            animation: gridFlow 40s linear infinite;
+        }
+
+        @keyframes gridFlow {
+            0% { transform: perspective(1000px) rotateX(75deg) translateY(0); }
+            100% { transform: perspective(1000px) rotateX(75deg) translateY(60px); }
+        }
+
+        .particle-field {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.08;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent);
+            top: -300px;
+            right: -200px;
+            animation: orbFloat 25s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-light);
+            bottom: -200px;
+            left: -150px;
+            animation: orbFloat 30s ease-in-out infinite reverse;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, 20px) scale(1.05); }
+            50% { transform: translate(0, 40px) scale(1); }
+            75% { transform: translate(-30px, 20px) scale(0.95); }
+        }
+
+        /* Layout System */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section {
+            padding: 140px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--accent-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-label::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 25px 0;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        header.scrolled {
+            padding: 18px 0;
+            background: rgba(10, 10, 15, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 45px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 7, 58, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 7, 58, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 220px 0 150px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 7, 58, 0.1);
+            border: 1px solid rgba(255, 7, 58, 0.3);
+            color: var(--accent-light);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 35px;
+            letter-spacing: 1.5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        .hero-title span::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 7, 58, 0.2);
+            z-index: -1;
+        }
+
+        .hero-description {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            max-width: 650px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .trust-indicators {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+        }
+
+        .trust-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-light);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 30px;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .expertise-item {
+            padding: 25px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .expertise-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 7, 58, 0.2);
+            box-shadow: var(--shadow);
+        }
+
+        .expertise-icon {
+            font-size: 2.5rem;
+            color: var(--accent-light);
+            margin-bottom: 20px;
+        }
+
+        .expertise-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .expertise-description {
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 600px;
+            background: var(--glass);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .security-visual {
+            width: 400px;
+            height: 400px;
+            position: relative;
+        }
+
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--accent);
+            animation: rotate 20s linear infinite;
+        }
+
+        .ring-1 {
+            width: 350px;
+            height: 350px;
+            animation-duration: 25s;
+        }
+
+        .ring-2 {
+            width: 280px;
+            height: 280px;
+            animation-duration: 20s;
+            animation-direction: reverse;
+        }
+
+        .ring-3 {
+            width: 210px;
+            height: 210px;
+            animation-duration: 15s;
+        }
+
+        .core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 7, 58, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 7, 58, 0.3);
+        }
+
+        .core-icon {
+            font-size: 2.5rem;
+            color: var(--accent-light);
+        }
+
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 35px;
+        }
+
+        .service-card {
+            background: var(--glass);
+            border-radius: 20px;
+            padding: 45px 35px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 7, 58, 0.05) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(255, 7, 58, 0.3);
+            box-shadow: var(--shadow);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            color: var(--accent-light);
+            margin-bottom: 30px;
+        }
+
+        .service-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+            font-size: 0.95rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 35px;
+        }
+
+        .project-card {
+            background: var(--glass);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 7, 58, 0.3);
+            box-shadow: var(--shadow);
+        }
+
+        .project-header {
+            height: 240px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 15, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-content {
+            padding: 35px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tech-tag {
+            background: rgba(255, 7, 58, 0.1);
+            color: var(--accent-light);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 7, 58, 0.2);
+        }
+
+        .project-link {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .project-link:hover {
+            color: var(--accent);
+            gap: 15px;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            padding: 30px;
+            background: var(--glass);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            border-color: rgba(255, 7, 58, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 7, 58, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-light);
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .contact-details p {
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .contact-details .note {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        .contact-form {
+            background: var(--glass);
+            border-radius: 20px;
+            padding: 50px 40px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-light);
+            box-shadow: 0 0 0 3px rgba(255, 7, 58, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 15, 0.95);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .hero-title {
+                font-size: 4rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 70px;
+            }
+            
+            .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 50px;
+            }
+            
+            .footer-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero {
+                padding: 180px 0 100px;
+            }
+            
+            .section {
+                padding: 100px 0;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.3rem;
+            }
+            
+            .hero-description {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="tower-container">
-        <div class="neon-tower">
-            <div class="tower-overlay"></div> <!-- For neon effects over image -->
-            <div class="tower-base"></div>
-            <div class="tower-top"></div>
-            <div class="glow-effect"></div>
-        </div>
-        <nav class="orbit-nav">
-            <ul class="orbit-tabs">
-                <li class="tab-item" data-link="index.html"><a href="index.html">Home</a></li>
-                <li class="tab-item" data-link="tutorials.html"><a href="tutorials.html">Tutorials</a></li>
-                <li class="tab-item" data-link="blog.html"><a href="blog.html">Blog</a></li>
-                <li class="tab-item" data-link="games.html"><a href="games.html">Games</a></li>
-                <li class="tab-item" data-link="about.html"><a href="about.html">About</a></li>
-                <li class="tab-item" data-link="contact.html"><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+    <!-- Advanced Background System -->
+    <div class="bg-system">
+        <div class="grid-pattern"></div>
+        <div class="particle-field" id="particleField"></div>
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
     </div>
-    <nav class="mobile-nav">
-        <a href="index.html">Home</a>
-        <a href="tutorials.html">Tutorials</a>
-        <a href="blog.html">Blog</a>
-        <a href="games.html">Games</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-    </nav>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h2>Empower Your Cybersecurity Journey</h2>
-                <p>Discover comprehensive tutorials on ethical hacking, penetration testing, and secure coding practices. Built for professionals and aspiring experts alike.</p>
-                <a href="tutorials.html" class="btn">Explore Tutorials</a>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">SILENT</div>
+                <nav class="nav-links">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Start Project
+                    </a>
+                </div>
             </div>
-        </section>
+        </div>
+    </header>
 
-        <section class="featured">
-            <div class="container">
-                <h2>What's New</h2>
-                <div class="grid">
-                    <div class="card">
-                        <h3>SQL Injection Fundamentals</h3>
-                        <p>Understand detection, exploitation, and mitigation strategies.</p>
-                        <a href="tutorials.html" class="btn-secondary">View Tutorial</a>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">ENTERPRISE SECURITY SOLUTIONS</div>
+                <h1 class="hero-title">Redefining Digital<br><span>Security Excellence</span></h1>
+                <p class="hero-description">
+                    SILENT delivers unparalleled security technology solutions for enterprises operating 
+                    in high-stakes environments. Our elite team specializes in advanced threat protection, 
+                    zero-trust architectures, and mission-critical system design.
+                </p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-shield-alt"></i>
+                        Secure Your Enterprise
+                    </a>
+                    <a href="#projects" class="btn btn-secondary">
+                        <i class="fas fa-chart-line"></i>
+                        View Case Studies
+                    </a>
+                </div>
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <div class="trust-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span>Zero Security Breaches</span>
                     </div>
-                    <div class="card">
-                        <h3>Advanced Network Reconnaissance</h3>
-                        <p>A detailed walkthrough on scripting network scans.</p>
-                        <a href="tutorials.html" class="btn-secondary">View Tutorial</a>
+                    <div class="trust-item">
+                        <div class="trust-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <span>24/7 Threat Monitoring</span>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <span>Military-Grade Encryption</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="newsletter">
-            <div class="container">
-                <h2>Stay Updated</h2>
-                <p>Subscribe for the latest in ethical hacking and cybersecurity insights.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Your Email" required>
-                    <button type="submit" class="btn">Subscribe</button>
-                </form>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Our Expertise</div>
+                <h2 class="section-title">The SILENT Standard</h2>
+                <p class="section-subtitle">
+                    We set the benchmark for enterprise security through innovation, precision, and 
+                    uncompromising commitment to excellence.
+                </p>
             </div>
-        </section>
-    </main>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Founded by industry veterans with decades of experience in cybersecurity, 
+                        intelligence, and enterprise technology, SILENT represents the pinnacle of 
+                        digital protection. Our approach combines cutting-edge technology with 
+                        time-tested security principles.
+                    </p>
+                    <p>
+                        We operate at the intersection of innovation and reliability, delivering 
+                        solutions that not only meet today's threats but anticipate tomorrow's 
+                        challenges. Our team includes former security researchers, cryptography 
+                        experts, and infrastructure architects.
+                    </p>
+                    <p>
+                        Every SILENT engagement begins with a comprehensive threat assessment and 
+                        ends with a fully operational, meticulously documented security ecosystem 
+                        designed for resilience, scalability, and performance under pressure.
+                    </p>
+                    <div class="expertise-grid">
+                        <div class="expertise-item">
+                            <div class="expertise-icon">
+                                <i class="fas fa-fingerprint"></i>
+                            </div>
+                            <h3 class="expertise-title">Advanced Cryptography</h3>
+                            <p class="expertise-description">
+                                Quantum-resistant encryption algorithms and secure key management systems.
+                            </p>
+                        </div>
+                        <div class="expertise-item">
+                            <div class="expertise-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3 class="expertise-title">AI-Powered Defense</h3>
+                            <p class="expertise-description">
+                                Machine learning systems that adapt to emerging threats in real-time.
+                            </p>
+                        </div>
+                        <div class="expertise-item">
+                            <div class="expertise-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <h3 class="expertise-title">Zero-Trust Architecture</h3>
+                            <p class="expertise-description">
+                                Complete network segmentation and identity-centric security models.
+                            </p>
+                        </div>
+                        <div class="expertise-item">
+                            <div class="expertise-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <h3 class="expertise-title">Secure Cloud Infrastructure</h3>
+                            <p class="expertise-description">
+                                Multi-cloud security frameworks with centralized governance and compliance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="security-visual">
+                        <div class="ring ring-1"></div>
+                        <div class="ring ring-2"></div>
+                        <div class="ring ring-3"></div>
+                        <div class="core">
+                            <div class="core-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Our Services</div>
+                <h2 class="section-title">Enterprise Protection</h2>
+                <p class="section-subtitle">
+                    Comprehensive security solutions designed for organizations operating in 
+                    high-risk, regulated, or mission-critical environments.
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="service-title">Advanced Threat Protection</h3>
+                    <p class="service-description">
+                        Multi-layered defense systems that detect, analyze, and neutralize 
+                        sophisticated cyber threats before they impact your operations.
+                    </p>
+                    <ul class="service-features">
+                        <li>Real-time threat intelligence</li>
+                        <li>Behavioral analysis engines</li>
+                        <li>Automated incident response</li>
+                        <li>Threat hunting services</li>
+                        <li>Vulnerability management</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="service-title">Secure Development</h3>
+                    <p class="service-description">
+                        End-to-end secure software development lifecycle with security 
+                        integrated into every phase of your product development.
+                    </p>
+                    <ul class="service-features">
+                        <li>Security architecture review</li>
+                        <li>Secure coding standards</li>
+                        <li>Automated security testing</li>
+                        <li>Penetration testing</li>
+                        <li>Code review & audit</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="service-title">Infrastructure Security</h3>
+                    <p class="service-description">
+                        Design and implementation of secure, resilient infrastructure 
+                        architectures that can withstand sophisticated attacks.
+                    </p>
+                    <ul class="service-features">
+                        <li>Zero-trust network design</li>
+                        <li>Cloud security architecture</li>
+                        <li>Container security</li>
+                        <li>Identity & access management</li>
+                        <li>Disaster recovery planning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Our Work</div>
+                <h2 class="section-title">Enterprise Engagements</h2>
+                <p class="section-subtitle">
+                    Selected case studies demonstrating our capability to deliver sophisticated 
+                    security solutions for demanding enterprise environments.
+                </p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-overlay">
+                            <a href="#" class="btn btn-primary">View Case Study</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Global Financial Institution</h3>
+                        <p class="project-description">
+                            Implementation of a quantum-resistant encryption framework and 
+                            zero-trust architecture for a multinational banking corporation 
+                            with operations in 40+ countries.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Quantum Cryptography</span>
+                            <span class="tech-tag">Zero-Trust</span>
+                            <span class="tech-tag">FIPS 140-2</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Read Full Case Study
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-overlay">
+                            <a href="#" class="btn btn-primary">View Case Study</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Defense Contractor</h3>
+                        <p class="project-description">
+                            Development of a secure collaboration platform with multi-level 
+                            security classification and advanced threat detection capabilities 
+                            for sensitive government projects.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">ML Security</span>
+                            <span class="tech-tag">Cross-Domain</span>
+                            <span class="tech-tag">NIST 800-53</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Read Full Case Study
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-overlay">
+                            <a href="#" class="btn btn-primary">View Case Study</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Healthcare Technology</h3>
+                        <p class="project-description">
+                            End-to-end security transformation for a healthcare technology 
+                            provider, achieving HIPAA compliance while implementing advanced 
+                            patient data protection measures.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HIPAA Compliance</span>
+                            <span class="tech-tag">Data Encryption</span>
+                            <span class="tech-tag">Access Control</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Read Full Case Study
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Contact Us</div>
+                <h2 class="section-title">Secure Consultation</h2>
+                <p class="section-subtitle">
+                    Begin your security transformation with a confidential consultation 
+                    with our enterprise security specialists.
+                </p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Secure Email</h3>
+                            <p>silent000666@hotmail.com</p>
+                            <p class="note">PGP encryption available upon request</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Direct Line</h3>
+                            <p>+92 3281262584</p>
+                            <p class="note">Available 3:00 PM - 8:00 PM PST</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Global Headquarters</h3>
+                            <p>SOME WHERE ON MARS 🔥</p>
+                            <p class="note">Secure facility access by appointment</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Response Time</h3>
+                            <p>Under 2 hours for urgent matters</p>
+                            <p class="note">24/7 emergency support available</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Work Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your work email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company" class="form-label">Organization</label>
+                            <input type="text" id="company" class="form-control" placeholder="Your company or organization" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Nature of your inquiry" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Secure Message</label>
+                            <textarea id="message" class="form-control" placeholder="Describe your security requirements or concerns" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Secure Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Silent Tech</h3>
-                    <p>Ethical hacking education for a secure world.</p>
+                <div class="footer-brand">
+                    <div class="footer-logo">SILENT</div>
+                    <p class="footer-description">
+                        Enterprise security solutions for organizations operating 
+                        in high-stakes environments. Uncompromising protection, 
+                        unparalleled expertise.
+                    </p>
+                    <div class="trust-indicators">
+                        <div class="trust-item">
+                            <div class="trust-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <span>ISO 27001 Certified</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="tutorials.html">Tutorials</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="games.html">Games</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms of Use</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <div class="social-links">
-                        <a href="https://linkedin.com/in/yourprofile" aria-label="LinkedIn">LinkedIn</a>
-                        <a href="https://github.com/yourusername" aria-label="GitHub">GitHub</a>
-                        <a href="https://x.com/yourhandle" aria-label="X/Twitter">X</a>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="#">Threat Protection</a></li>
+                            <li><a href="#">Secure Development</a></li>
+                            <li><a href="#">Infrastructure Security</a></li>
+                            <li><a href="#">Compliance</a></li>
+                            <li><a href="#">Incident Response</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Leadership</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">News</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="#">Case Studies</a></li>
+                            <li><a href="#">White Papers</a></li>
+                            <li><a href="#">Security Blog</a></li>
+                            <li><a href="#">Webinars</a></li>
+                            <li><a href="#">Documentation</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Silent Tech. All rights reserved. | Committed to Ethical Practices.</p>
+                <p>&copy; 2023 SILENT Security Enterprises. All rights reserved. | Secure. Uncompromising. Elite.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Create dynamic particles
+        function createParticles() {
+            const particleField = document.getElementById('particleField');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 6 + 2;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 20;
+                const duration = Math.random() * 15 + 20;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particleField.appendChild(particle);
+            }
+        }
+
+        // Header scroll effect
+        function handleHeaderScroll() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real application, you would send the form data to a server
+            // For this example, we'll just show an alert
+            alert('Thank you for your secure message. Our team will contact you within 2 hours.');
+            this.reset();
+        });
+
+        // Update active nav link on scroll
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Add subtle animation to elements when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        function observeElements() {
+            const animatedElements = document.querySelectorAll('.service-card, .project-card, .expertise-item, .contact-method');
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            handleHeaderScroll();
+            observeElements();
+            
+            window.addEventListener('scroll', function() {
+                handleHeaderScroll();
+                updateActiveNavLink();
+            });
+        });
+    </script>
 </body>
 </html>
